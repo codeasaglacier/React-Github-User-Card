@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import './App.css'
 import axios from 'axios'
+import FollowersCard from './FollowersCard'
 
 
 class App extends Component {
   constructor() {
     super()
     this.state = {
-      user: [],
+      user: {},
       userText: '',
       follower: []
     }
@@ -21,17 +22,8 @@ class App extends Component {
     
       .then(axios.spread((res, fol) => {
         this.setState({
-          user: res.data
-        })
-        fol.data.forEach(flwr => {
-          axios
-            .get( `https://api.github.com/users/${flwr.login}` )
-            .then( resp => {
-              console.log('Resp: ', resp.data)
-              this.setState({
-                follower: resp.data
-              })
-            })
+          user: res.data,
+          follower: fol.data
         })
       }))
       .catch( err => console.log( 'componentDidMount Error: ', err ) )
@@ -69,16 +61,7 @@ class App extends Component {
         />
         <div>
           { this.state.follower.map(foll => (
-            <div>
-              <img 
-                src = { foll.avatar_url }
-                alt = { foll.login }
-              />
-              <div>
-                <p>Username: { foll.login }</p>
-                <p>Bio: { foll.bio }</p>
-              </div>
-            </div>
+           <FollowersCard follower = { foll } />
           ))}
         </div>
       </div>
