@@ -42,23 +42,24 @@ class App extends Component {
     return (
       <div className="App">
           <h1>React Github User Cards</h1>
-        <div>
+        <div className = 'myPicBox'>
           <img 
+            className = 'myPic'
             src = { this.state.user.avatar_url } 
             alt = { this.state.user.login }
           />
-          <div>
+          <div className = 'about'>
             <p>Username: { this.state.user.login }</p>
             <p>Bio: { this.state.user.bio }</p>
             <p>Followers: {this.state.user.followers}</p>
             <p>Following: {this.state.user.following}</p>
           </div>
         </div>
-        <input
+        {/* <input
           type = 'text'
           value = { this.state.login }
           onChange = { this.handleChange }
-        />
+        /> */}
         <div>
           { this.state.follower.map(foll => (
            <FollowersCard follower = { foll } />
